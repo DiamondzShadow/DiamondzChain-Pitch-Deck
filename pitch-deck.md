@@ -19,10 +19,11 @@ style: |
 
 # Shadow Diamondz
 
-## A multi-chain DeFi + creator-economy ecosystem
-### where every protocol fee buys SDM
+## We built a blockchain.
+## Then we built the DeFi and creator economy on top of it.
+### — and every protocol fee buys SDM
 
-Arbitrum · Polygon · Base · HyperEVM · DiamondzChain L3
+DiamondzChain L3 · Arbitrum · Polygon · Base · HyperEVM
 
 April 2026
 
@@ -30,9 +31,9 @@ April 2026
 
 ## The pitch in one line
 
-> Shadow Diamondz runs **five live products** on **four EVM chains**, and every fee from every product routes to a **single revenue router** that buys SDM and seeds liquidity.
+> Shadow Diamondz **operates its own L3 blockchain (DiamondzChain, Chain ID 7791)** and **five live products** across four additional EVM chains. Every fee from every product routes to a **single revenue router** that buys SDM and seeds liquidity.
 
-One chain, one market, one unfragmented buyback.
+We run the rails, not just ride them.
 
 ---
 
@@ -50,15 +51,41 @@ Result: users pay fees to multiple surfaces, but no single token captures the ec
 
 ## What we built
 
-Five **live** products sharing one fee router and one token treasury:
+One blockchain, five live products, one fee router, one token treasury:
 
-| # | Product | Status |
-|---|---------|--------|
+| # | Layer | Status |
+|---|-------|--------|
+| 0 | **DiamondzChain L3** — our Arbitrum Orbit AnyTrust L3 (Chain ID 7791) with 2-of-3 validator bridge and 6 zwTokens | <span class="status-live">LIVE</span> |
 | 1 | **ShadowVault V15** — 9 USDC yield vaults across Arb / Polygon / HyperEVM | <span class="status-live">LIVE</span> |
 | 2 | **ShadowzDex** — intent-based DEX at dex.diamondz.one | <span class="status-live">LIVE</span> |
 | 3 | **EcosystemMarketplace + LendingPool v1.4** — NFT marketplace + NFT-backed lending | <span class="status-live">LIVE</span> |
 | 4 | **CrabbyTV** — live streaming + FAST-channel distribution + on-chain creator progression | <span class="status-live">LIVE</span> |
 | 5 | **OnlyShellz** — Patreon-alternative, USDC-native recurring subscriptions | <span class="status-dev">PHASE 1 — IN DEV</span> |
+
+We don't rent blockspace from someone else's L1. We run our own.
+
+---
+
+## Layer 0 — DiamondzChain L3 <!-- Claude browser: verify RPC/explorer uptime before investor send -->
+
+An **Arbitrum Orbit AnyTrust L3** we operate end-to-end:
+
+| Parameter | Value |
+|-----------|-------|
+| Chain ID | **7791** |
+| RPC | `rpc-mainnet.diamondz.baby` |
+| Explorer | `diamondz.tryethernal.com` |
+| Bridge validator consensus | 2-of-3 on `BridgeValidatorV2` |
+| Bridge mint contract | `0x3d9F35cB176e808E95F8fc665E34407114748967` |
+| zwTokens live | 6 (zwUSDC, zwBTC, zwSDM, zwPGOLD, zwARB, zwETH) |
+| zDi0 (bridged DBV share) | `0xafa689849631A9420ab8C514EE96E66af205eC4d` |
+
+Why we operate our own L3 rather than rent blockspace:
+
+- **Gas control** — we set the fee structure for our own creator and DeFi flows
+- **Ecosystem alignment** — every transaction on DiamondzChain routes value back to the Shadow Diamondz treasury
+- **Scale headroom** — creator-economy throughput (tips, streams, subscriptions) is a different load profile than L1 DeFi; we tune for it
+- **Sovereignty** — if an L1 changes rules, we don't have to migrate
 
 ---
 
@@ -130,10 +157,15 @@ Positioned as a Patreon alternative, not an OnlyFans alternative. This distincti
 
 ---
 
-## Architecture — multi-chain by design, not by fork
+## Architecture — blockchain + multi-chain app, by design
 
 ```
-                    ┌── Arbitrum One ──────────── CANONICAL HOME
+  DiamondzChain L3 (Chain ID 7791) ← we operate this chain
+  ├── Own RPC, own explorer, own validator set
+  ├── 6 zwTokens + zDi0 bridge mirror
+  └── Creator-economy + DeFi throughput, our fee rules
+
+                    ┌── Arbitrum One ──────────── SETTLEMENT HOME
                     │   SDM · V15 A-D · ShadowzDex · Marketplace · Lending · Safe
                     │
    CCIP mesh ───────┼── Polygon ──────────── V15 A-D · NFT locker · zSDM
@@ -145,11 +177,10 @@ Positioned as a Patreon alternative, not an OnlyFans alternative. This distincti
    LayerZero ───────┴── HyperEVM ──────────── V15 Pool E + F · ShadowPass · zSDM
                         (fees bridge to Arb)
 
-   DiamondzChain L3 (ID 7791) — zwToken mirror via 2-of-3 bridge
    Solana — devnet deployed, mainnet cost measured (3.376 SOL)
 ```
 
-Fees collected anywhere in the system bridge to the Arbitrum Safe before the buyback fires. One chain, one market, one liquidity pool.
+We run DiamondzChain. We settle canonical SDM on Arbitrum. We bridge everywhere else. Fees collected anywhere bridge to the Arbitrum Safe before the buyback fires.
 
 ---
 
@@ -224,20 +255,26 @@ Governance via OpenZeppelin Governor + TimelockController. DAO can move economic
 
 ## Traction
 
-<!-- Fill via Blockscout before sending -->
+<!--
+  CLAUDE BROWSER: refresh this slide before every investor send.
+  Run these queries on Blockscout MCP. Chain IDs: Arb=42161, Poly=137, Base=8453.
+  Replace each [PLACEHOLDER] with the fetched number + append "as of <UTC>" footer.
+-->
 
 | Metric | Value |
 |--------|-------|
-| Total TVL across 9 V15 vaults | [PLACEHOLDER — Blockscout] |
-| Unique depositors | [PLACEHOLDER] |
-| SDM holders | [PLACEHOLDER — Blockscout] |
-| ShadowzDex 30-day volume | [PLACEHOLDER] |
-| LPFeeGateway fees → treasury | [PLACEHOLDER] |
-| SDM/USDC Uni V3 pool liquidity | [PLACEHOLDER] |
-| Cumulative SDM buyback | [PLACEHOLDER] |
-| Active NFT-backed loans | [PLACEHOLDER] |
+| Total TVL across 9 V15 vaults | [PLACEHOLDER — sum totalAssets() across all V15 vaults, Arb+Poly+Hyper] |
+| Unique depositors | [PLACEHOLDER — count unique addresses receiving YieldReceipt NFTs] |
+| SDM holders | [PLACEHOLDER — get_address_info on 0x602b869eEf1C9F0487F31776bad8Af3C4A173394] |
+| ShadowzDex 30-day volume | [PLACEHOLDER — sum amountIn from IntentRouter transactions, 30d window] |
+| LPFeeGateway fees → treasury | [PLACEHOLDER — sum FeeCollected events from LPFeeGateway] |
+| SDM/USDC Uni V3 pool liquidity | [PLACEHOLDER — read_contract liquidity() on 0x25a7f80d191086B77cEB5Bb368C3e71F875Bb4AE] |
+| Cumulative SDM buyback | [PLACEHOLDER — sum SDM transfers into Seeder V2 address] |
+| Active NFT-backed loans | [PLACEHOLDER — read_contract totalBorrowed() on LendingPool v1.4] |
+| DiamondzChain L3 tx count (30d) | [PLACEHOLDER — query diamondz.tryethernal.com API] |
+| Arb Treasury Safe balance | [PLACEHOLDER — get_address_info on 0x6052C6559eD5e5CbE74Ac0D42205Ad4A1CFBEd43] |
 
-All metrics are queryable on-chain via Blockscout; this slide should be regenerated from live data immediately before any investor meeting.
+*Data as of [TIMESTAMP UTC], fetched via Blockscout MCP.*
 
 ---
 
