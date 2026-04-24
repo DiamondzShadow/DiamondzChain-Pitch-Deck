@@ -186,44 +186,17 @@ We run DiamondzChain. We settle canonical SDM on Arbitrum. We bridge everywhere 
 
 ## The fee flywheel — every product, one router
 
-| Source | Rate | Where it lands |
-|--------|------|----------------|
-| V15 withdrawal (on-time / FLEX) | 1.2% | Seeder V2 |
-| V15 protocol yield fee | 5% | Seeder V2 |
-| LPFeeGateway (any V2/V3 LP deposit) | 0.03% | Arb Safe |
-| ShadowzDex intent fee (post-FeeVault) | 5–20 bps | FeeVault → Seeder V2 |
-| EcosystemMarketplace royalty | 2.5% | Arb Safe |
-| LendingPool v1.4 interest split | 10% of interest | Arb Safe |
-| DiamondzChain Bridge | 0.30% / flat | BridgeFeeDAO |
-| AI co-host (CrabbyTV / OnlyShellz) | $0.99/min USDC | Arb Safe |
+| Source | Rate |
+|--------|------|
+| V15 withdrawal (on-time / FLEX) | 1.2% |
+| V15 protocol yield fee | 5% |
+| LPFeeGateway (any V2/V3 LP deposit) | 0.03% |
+| ShadowzDex intent fee (post-FeeVault) | 5–20 bps |
+| EcosystemMarketplace royalty | 2.5% |
+| LendingPool v1.4 interest split | 10% of interest |
+| AI co-host (CrabbyTV / OnlyShellz) | $0.99/min USDC |
 
-**Seeder V2 splits 50/50**: SDM buyback on DODO DPP + Uniswap V3 LP seeding, and Arbitrum treasury Safe.
-
----
-
-## Why the buyback isn't per-chain
-
-Fees collected on Polygon and HyperEVM **bridge to Arbitrum first** — via Chainlink CCIP and LayerZero respectively — before any buyback executes.
-
-Multiple per-chain buyback sites would:
-
-- Fragment SDM liquidity across chains
-- Dilute the flywheel on every fee dollar
-- Create arbitrage surface that leaks treasury value
-
-One chain, one market, one buyback. The cost is a bridge fee per batch; the benefit is every SDM holder sits in the same liquidity pool no matter where fees originated.
-
----
-
-## Protocol integrations — built on the right primitives
-
-| Protocol | What we use | Where |
-|----------|-------------|-------|
-| **0x** | Swap API v2 via AllowanceHolder | V15 rebalancer, ShadowzDex aggregator venue, Token Tester (7-size quote probes) |
-| **Uniswap** | V3 SDM/USDC canonical pool (1% fee) + V2/V3 paste-box for any pool | LP surface, LPFeeGateway 0.03% hook |
-| **Chainlink** | CCIP mesh + Data Feeds with staleness guards | Cross-chain SDM, DEX settlement, NFT value push, wrapper ratios, intent oracles |
-
-Every external primitive we lean on is **audited, permissioned at the token-pool level where applicable, and replaceable**. We do not reinvent cross-chain messaging or price oracles.
+Every fee lands in one revenue router: **50% buys SDM + seeds liquidity, 50% funds operations**. Fees from Polygon and HyperEVM bridge to Arbitrum before the buyback fires — **one chain, one market, no fragmentation**.
 
 ---
 
@@ -231,25 +204,22 @@ Every external primitive we lean on is **audited, permissioned at the token-pool
 
 | Token | Role |
 |-------|------|
-| **SDM** | Ecosystem governance + utility. ERC677, 4B initial / 5B max supply. CCIP-native on Arb + Poly + Base + HyperEVM. |
-| **vSDM** | ERC20Votes wrap for DAO voting |
-| **wSDM / gSDM / sSDM** | BTC-backed / gold-backed / stablecoin-backed wrappers with Chainlink-fed ratio enforcement |
-| **DBV** | Diamond Basket Vault ERC-4626 shares — diversified basket |
-| **CRABBY** | CrabbyTV platform utility |
-| **zwSDM** | DiamondzChain L3 mirror |
+| **SDM** | Governance + utility. ERC677, 4B initial / 5B max. CCIP-native on 4 chains. |
+| **vSDM** | Voting wrap for DAO governance |
+| **wSDM / gSDM / sSDM** | BTC-backed / gold-backed / stablecoin-backed wrappers |
+| **DBV** | Diamond Basket Vault shares — diversified ERC-4626 |
 
-Governance via OpenZeppelin Governor + TimelockController. DAO can move economic parameters; Safe retains pause / rescue / adapter-swap rights. No Ownable in production.
+Governance via OpenZeppelin Governor + Timelock. DAO moves economic parameters; per-chain Safes retain pause and emergency rights.
 
 ---
 
 ## Security posture
 
-- **Per-chain Gnosis Safes** — one Safe per chain per purpose, cross-checked before any admin-handoff deploy
-- **AccessControl, not Ownable** — in every production contract
-- **USDC-native adapters only** — no adapter returns a non-USDC asset on withdraw. Pendle / Gamma / ICHI / Balancer swap-step adapters were eliminated, not fixed.
-- **Every adapter has `rescueToken`** — rule enforced ecosystem-wide after a prior adapter stranded funds
-- **Chainlink staleness guards** — stale feeds revert, not fall back. Stale valuation is the highest-risk input to NFT-backed lending.
-- **LayerZero DVN config read-back-verified** on both libraries on both chains for the Hyper ↔ Arb bridge
+- **Per-chain Gnosis Safe multisig** on every production contract — no Ownable surface
+- **USDC-native adapter rule** — no adapter may return a non-USDC asset on withdraw, eliminating a whole class of swap-step bugs
+- **Chainlink price feeds with enforced staleness** — stale oracles revert, they don't fall back
+
+External audits are the primary line item in our security budget (see Use of Funds).
 
 ---
 
@@ -267,12 +237,12 @@ Governance via OpenZeppelin Governor + TimelockController. DAO can move economic
 | Unique depositors | [PLACEHOLDER — count unique addresses receiving YieldReceipt NFTs] |
 | SDM holders | [PLACEHOLDER — get_address_info on 0x602b869eEf1C9F0487F31776bad8Af3C4A173394] |
 | ShadowzDex 30-day volume | [PLACEHOLDER — sum amountIn from IntentRouter transactions, 30d window] |
-| LPFeeGateway fees → treasury | [PLACEHOLDER — sum FeeCollected events from LPFeeGateway] |
+| LPFeeGateway fees collected | [PLACEHOLDER — sum FeeCollected events from LPFeeGateway] |
 | SDM/USDC Uni V3 pool liquidity | [PLACEHOLDER — read_contract liquidity() on 0x25a7f80d191086B77cEB5Bb368C3e71F875Bb4AE] |
 | Cumulative SDM buyback | [PLACEHOLDER — sum SDM transfers into Seeder V2 address] |
 | Active NFT-backed loans | [PLACEHOLDER — read_contract totalBorrowed() on LendingPool v1.4] |
 | DiamondzChain L3 tx count (30d) | [PLACEHOLDER — query diamondz.tryethernal.com API] |
-| Arb Treasury Safe balance | [PLACEHOLDER — get_address_info on 0x6052C6559eD5e5CbE74Ac0D42205Ad4A1CFBEd43] |
+| Revenue reserves (Arb Safe) | [PLACEHOLDER — get_address_info on 0x6052C6559eD5e5CbE74Ac0D42205Ad4A1CFBEd43] |
 
 *Data as of [TIMESTAMP UTC], fetched via Blockscout MCP.*
 
@@ -356,7 +326,7 @@ Advisors: [PLACEHOLDER — add named advisors with one-line each]
 | Founding team (4 × 12%) | **48%** |
 | Investors (seed round) | 13% |
 | Option pool (new hires) | 15% |
-| Treasury / advisors / future rounds | 24% |
+| Reserved for future rounds & advisors | 24% |
 
 ---
 
@@ -364,13 +334,12 @@ Advisors: [PLACEHOLDER — add named advisors with one-line each]
 
 | Bucket | % | Amount |
 |--------|---|--------|
-| Engineering (contracts, keepers, UI) | 35% | $840K |
-| Security (external audits, bounty program) | 20% | $480K |
-| Growth (creator acquisition, DeFi BD, partnerships) | 20% | $480K |
-| Treasury / multi-chain liquidity seeding | 20% | $480K |
-| Operations (GCP, RPC, monitoring) | 5% | $120K |
+| **Engineering** — contracts, keepers, UI, multi-chain launches | 40% | $960K |
+| **Security** — external audits + bounty program across the stack | 25% | $600K |
+| **Growth** — creator acquisition, DeFi BD, partnerships | 25% | $600K |
+| **Operations** — infra, monitoring, incident response | 10% | $240K |
 
-Security is the line item we under-fund at our own peril. At the minimum raise we drop the treasury bucket; at the full raise we scale security and liquidity seeding proportionally.
+Security is the line item we under-fund at our own peril. We currently run on internal audits only — external audits across V15, LendingPool, ShadowzDex, Marketplace, and the bridge are the single highest-value use of funds.
 
 ---
 
