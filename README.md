@@ -10,7 +10,7 @@ Source deck: [`pitch-deck.md`](./pitch-deck.md)
 
 Shadow Diamondz is **a blockchain we operate** (DiamondzChain L3, Chain ID 7791) **plus five live products** built on top of it and four additional EVM chains. Every protocol fee across every product routes to a single revenue router that buys SDM and seeds liquidity.
 
-21 slides covering:
+18 slides covering:
 
 1. Cover
 2. Pitch in one line
@@ -20,41 +20,29 @@ Shadow Diamondz is **a blockchain we operate** (DiamondzChain L3, Chain ID 7791)
 6–10. Product detail — ShadowVault V15, ShadowzDex, Financial NFTs + Lending, CrabbyTV, OnlyShellz
 11. Multi-chain architecture
 12. Fee flywheel
-13. Why the buyback is single-chain
-14. Protocol integrations (0x, Uniswap, Chainlink)
-15. SDM token economy
-16. Security posture
-17. **Traction** (placeholders — Claude browser should refresh these from Blockscout)
-18. V11 → V15 shipping record
-19. 12-month roadmap
-20. Team, ask, risks, contact
+13. SDM token economy
+14. Security posture
+15. V11 → V15 shipping record
+16. 12-month roadmap
+17. Team
+18. Ask — raise / cap table / use of funds
+19. Risks & honest caveats
+20. Why this bet is valuable
+21. Contact
 
-Every product has a status tag: `LIVE` / `IN DEV` / `PLANNED`. Metrics that aren't yet filled are tagged `[PLACEHOLDER]` with a query hint. The Risks slide lists what we'd rather tell investors than have them find in diligence.
+Every product has a status tag: `LIVE` / `IN DEV` / `PLANNED`. The Risks slide lists what we'd rather tell investors than have them find in diligence.
+
+**No traction slide yet** — we'll add it back once we have live metrics worth showing. Placeholder numbers in front of investors is worse than no numbers. The shipped-product evidence across slides 4–10 carries the narrative until then.
 
 ---
 
 ## For Claude browser (connected to this GitHub repo)
 
-This deck has embedded update hooks for Claude browser with Blockscout MCP access. Search `pitch-deck.md` for these markers:
+Claude browser can update this deck when connected to GitHub + Blockscout MCP. Useful workflows:
 
-| Marker | Meaning | What to do |
-|--------|---------|------------|
-| `<!-- CLAUDE BROWSER: ... -->` | Explicit instructions for Claude browser | Follow literally |
-| `[PLACEHOLDER — ...]` | A field that needs live data | Run the hint query, replace with the fetched value |
-| `[TIMESTAMP UTC]` | Freshness marker | Update to the current UTC timestamp on every refresh |
-
-### Refresh workflow for Claude browser
-
-Before any investor send, run this sequence:
-
-1. Open `pitch-deck.md` from the repo.
-2. Search for `CLAUDE BROWSER:` markers. Follow each instruction.
-3. Run the Blockscout queries hinted in the Traction slide.
-4. Replace every `[PLACEHOLDER]` with the fetched value + a human-readable format (round to the right order of magnitude; don't write "$1,218,443.17" when "$1.2M" is what the slide needs).
-5. Replace `[TIMESTAMP UTC]` with the current UTC time.
-6. Verify the DiamondzChain RPC (`rpc-mainnet.diamondz.baby`) and explorer (`diamondz.tryethernal.com`) are up. If either is down, flag on slide 5.
-7. Commit with message `Refresh traction metrics — <date>` and push.
-8. Render to PDF / PPTX (see below) and store the output somewhere outside this repo (the `.gitignore` keeps rendered artifacts out of git).
+- **Add a traction slide** when live metrics are worth showing — query totals from Blockscout, insert between the Fee Flywheel and SDM Token slides
+- **Verify DiamondzChain infrastructure** before an investor send — ping `rpc-mainnet.diamondz.baby` and `diamondz.tryethernal.com`, flag if either is down on slide 5
+- **Refresh roadmap** when quarters ship — move shipped items to the V11→V15 record, update remaining dates
 
 ### Addresses Claude browser will need
 
@@ -103,8 +91,6 @@ GitHub renders the markdown as a long page; `---` horizontal rules mark slide bo
 
 Checklist for any investor send:
 
-- [ ] **Traction slide** — all placeholders replaced with live Blockscout numbers
-- [ ] **Timestamp** — `[TIMESTAMP UTC]` refreshed
 - [ ] **Team backgrounds** — one-line bios filled under each named exec
 - [ ] **Advisors list** — filled if any are onboard
 - [ ] **Roadmap dates** — shifted forward if any have slipped; quarters marked "shipped" where applicable

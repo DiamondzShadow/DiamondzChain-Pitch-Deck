@@ -223,31 +223,6 @@ External audits are the primary line item in our security budget (see Use of Fun
 
 ---
 
-## Traction
-
-<!--
-  CLAUDE BROWSER: refresh this slide before every investor send.
-  Run these queries on Blockscout MCP. Chain IDs: Arb=42161, Poly=137, Base=8453.
-  Replace each [PLACEHOLDER] with the fetched number + append "as of <UTC>" footer.
--->
-
-| Metric | Value |
-|--------|-------|
-| Total TVL across 9 V15 vaults | [PLACEHOLDER — sum totalAssets() across all V15 vaults, Arb+Poly+Hyper] |
-| Unique depositors | [PLACEHOLDER — count unique addresses receiving YieldReceipt NFTs] |
-| SDM holders | [PLACEHOLDER — get_address_info on 0x602b869eEf1C9F0487F31776bad8Af3C4A173394] |
-| ShadowzDex 30-day volume | [PLACEHOLDER — sum amountIn from IntentRouter transactions, 30d window] |
-| LPFeeGateway fees collected | [PLACEHOLDER — sum FeeCollected events from LPFeeGateway] |
-| SDM/USDC Uni V3 pool liquidity | [PLACEHOLDER — read_contract liquidity() on 0x25a7f80d191086B77cEB5Bb368C3e71F875Bb4AE] |
-| Cumulative SDM buyback | [PLACEHOLDER — sum SDM transfers into Seeder V2 address] |
-| Active NFT-backed loans | [PLACEHOLDER — read_contract totalBorrowed() on LendingPool v1.4] |
-| DiamondzChain L3 tx count (30d) | [PLACEHOLDER — query diamondz.tryethernal.com API] |
-| Revenue reserves (Arb Safe) | [PLACEHOLDER — get_address_info on 0x6052C6559eD5e5CbE74Ac0D42205Ad4A1CFBEd43] |
-
-*Data as of [TIMESTAMP UTC], fetched via Blockscout MCP.*
-
----
-
 ## The V11 → V15 shipping record
 
 We iterate in public, and every iteration hardened the design:
