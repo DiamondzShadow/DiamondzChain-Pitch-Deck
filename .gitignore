@@ -1,0 +1,16 @@
+# Marp output
+pitch-deck.pdf
+pitch-deck.pptx
+pitch-deck.html
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Node (if anyone npm-installs Marp CLI locally)
+node_modules/
+package-lock.json
