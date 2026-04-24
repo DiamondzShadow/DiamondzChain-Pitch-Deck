@@ -301,21 +301,39 @@ Advisors: [PLACEHOLDER — add named advisors with one-line each]
 
 ## The ask
 
-[PLACEHOLDER]
+**Raise:** $1.2M – $3.6M seed, sized per investor conviction.
+**Valuation anchor:** the live protocol stack — ShadowVault V15 (9 vaults, 3 chains), ShadowzDex (intent DEX + CCIP mesh), DiamondzChain Bridge (L3 + 2-of-3 validator + 6 zwTokens), EcosystemMarketplace + LendingPool v1.4, and the SDM multichain token economy.
 
-**Raise:** $[AMOUNT] at $[VALUATION] valuation.
+### Three scenarios
 
-**Use of funds:**
+| Scenario | Raise | Post-money | Investor dilution | Runway |
+|----------|-------|------------|-------------------|--------|
+| Strategic / minimum | **$1.2M** | **$12M** | ~10% | 18 months |
+| Core seed | **$2.4M** | **$18M** | ~13% | 24–30 months |
+| Full seed | **$3.6M** | **$24M** | ~15% | 30–36 months |
 
-| Bucket | Allocation |
+### Post-raise cap table target (core seed)
+
+| Holder | Allocation |
 |--------|-----------|
-| Engineering (contracts + keepers + UI) | [__]% |
-| Security (audits, bounty programs) | [__]% |
-| Operations (GCP infra, RPC, monitoring) | [__]% |
-| Growth (creator acquisition, DeFi partnerships) | [__]% |
-| Treasury runway / liquidity seeding | [__]% |
+| Founding team (4 × 12%) | **48%** |
+| Investors (seed round) | 13% |
+| Option pool (new hires) | 15% |
+| Treasury / advisors / future rounds | 24% |
 
-Current treasury runway at current burn: [__] months.
+---
+
+### Use of funds — core seed ($2.4M)
+
+| Bucket | % | Amount |
+|--------|---|--------|
+| Engineering (contracts, keepers, UI) | 35% | $840K |
+| Security (external audits, bounty program) | 20% | $480K |
+| Growth (creator acquisition, DeFi BD, partnerships) | 20% | $480K |
+| Treasury / multi-chain liquidity seeding | 20% | $480K |
+| Operations (GCP, RPC, monitoring) | 5% | $120K |
+
+Security is the line item we under-fund at our own peril. At the minimum raise we drop the treasury bucket; at the full raise we scale security and liquidity seeding proportionally.
 
 ---
 
