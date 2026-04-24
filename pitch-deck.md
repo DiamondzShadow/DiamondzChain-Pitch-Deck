@@ -279,16 +279,23 @@ A pattern investors should recognize: we ship, we learn from bugs that happen on
 
 ## Team
 
-[PLACEHOLDER]
+**Yakini Crews** — Founder & Lead Engineer
+*[one-line background: prior work, credentials]*
+Architected and shipped the full Shadow Diamondz on-chain stack: ShadowVault V11→V15 (9 vaults, 3 chains), ShadowzDex intent router, EcosystemMarketplace + LendingPool v1.4, cross-chain SDM via CCIP + LayerZero.
 
-- Founder / CEO — [name, background, prior exits]
-- Head of Engineering — [name, background]
-- Lead Smart Contract Engineer — [name, background]
-- Head of Growth — [name, background]
+**Richarda Davis** — Head of Growth
+*[one-line background]*
+Owns creator acquisition, DeFi BD, and partnership pipeline across the ShadowVault / ShadowzDex / CrabbyTV surfaces.
 
-Advisors: [PLACEHOLDER]
+**Kory Whittaker** — Chief Media Officer
+*[one-line background]*
+FAST channel strategy, CrabbyTV distribution (Roku / Fire TV / Apple TV), and media rights.
 
-Prior experience to highlight: Solidity production at scale, multi-chain operational experience, creator-economy product experience.
+**Shunice Atkins** — Chief Marketing Officer
+*[one-line background]*
+Ecosystem-wide brand, creator positioning, and go-to-market across DeFi and consumer products.
+
+Advisors: [PLACEHOLDER — add named advisors with one-line each]
 
 ---
 
